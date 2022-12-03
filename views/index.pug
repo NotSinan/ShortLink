@@ -1,6 +1,17 @@
 extends layout.pug
-
 block content
+    head 
+        title Pug Test
+        link(rel='stylesheet', type='text/css', href='/stylesheets/index.css')
     body
-        h1 T1 
-        button submit
+        div(class="container h-100 d-flex align-items-center justify-content-center mt-5")
+            <form>
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="text-center">URL</label>
+                <input type="email" class="form-control mt-5" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <div class="text-center">
+                <button class="btn btn-dark mt-5">Submit</button>
+            </div>
+            </form>
+

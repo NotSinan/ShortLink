@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+
+.square-box {
+  max-width: 600px;
+  min-height: 600px;
+  border: solid black;
+}

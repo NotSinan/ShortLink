@@ -8,7 +8,7 @@ const shortlinkSchema = new mongoose.Schema({
 
     short: {
         type: String,
-        required: true
+        required: true,
     }
 })
 

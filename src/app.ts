@@ -8,8 +8,9 @@ const port: number = 3000;
 
 initialiseDataSource();
 
-app.use("/", shortlinkRoute);
 app.use(bodyParser.json());
+
+app.use("/", shortlinkRoute);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at https://localhost:${port}`);

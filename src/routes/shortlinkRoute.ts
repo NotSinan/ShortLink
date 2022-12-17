@@ -29,7 +29,6 @@ router.post(
     check("full")
       .exists()
       .isURL({ require_host: true, protocols: ["http", "https"] }),
-    check("clicks"),
   ],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
@@ -40,7 +39,6 @@ router.post(
 
       shortlink.short_link = `${req.body.short}`;
       shortlink.full_link = `${req.body.full}`;
-      shortlink.clicks = 0;
 
       await AppDataSource.getRepository(Shortlink).save(shortlink);
 
@@ -52,15 +50,19 @@ router.post(
 router.get(
   "/:shortlink",
   async (req: Request, res: Response): Promise<void> => {
-    const link = await AppDataSource.getRepository(Shortlink).findOneBy({
-      short_link: `${req.params.shortlink}`,
-    });
-
-    if (link) {
-      res.redirect(link.full_link);
-    } else {
-      res.sendStatus(404);
-    }
+    const link = await AppDataSource.getRepository(Shortlink)
+      .findOneBy({
+        short_link: `${req.params.shortlink}`,
+      })
+      .then(async (link) => {
+        if (link) {
+          link.clicks += 1;
+          await link.save();
+          res.redirect(link.full_link);
+        } else {
+          res.sendStatus(404);
+        }
+      });
   }
 );
 

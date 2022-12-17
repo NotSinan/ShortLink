@@ -11,6 +11,8 @@ export class Shortlink extends BaseEntity {
   @Column()
   full_link!: string;
 
-  @Column()
+  @Column({
+    default: 0,
+  })
   clicks!: number;
 }
